@@ -1,0 +1,154 @@
+/* ============================================================================
+   Salesforce Brand Central 2026 — brand tokens + themes
+   Paste once into your deck. Every component snippet references these vars.
+
+   SOURCE OF TRUTH: ../../references/brand-central/ (official Brand Central
+   files from the Salesforce Brand team — see that README for color/type/logo/
+   motion/graphics specs). Hex below matches the official 2026 palette.
+
+   Official primary palette (digital):
+     White #FFFFFF · Cloud Blue 95 #EAF5FE · Cloud Blue 80 #90D0FE
+     Cloud Blue 68 #00B3FF (accent) · Electric Blue 50 #066AFE
+     Electric Blue 30 #022AC0 (containers) · Electric Blue 15 #001E5B (type)
+   Secondary (80/20 rule, accents only):
+     Teal 80 #04E1CB · Yellow 80 #FCC003 · Pink 60 #FF538A · Violet 65 #D17DFE
+
+   TWO THEMES (ask the user which at the start — see SKILL.md):
+     • BLUE  — Brand Central 2026, the DEFAULT/official system (this :root).
+     • PURPLE — Headless 360 legacy. Add class="legacy-purple" to a .slide.
+   ============================================================================ */
+
+/* ---- Brand fonts (ship the .otf/.ttf in a fonts/ dir next to the deck) ---- */
+@font-face {
+  font-family: "AvantGarde SF";
+  src: url("fonts/AvantGardeForSalesforce-Demi.otf") format("opentype");
+  font-weight: 600; font-display: swap;
+}
+@font-face {
+  font-family: "Salesforce Sans";
+  src: url("fonts/SalesforceSans-Regular.ttf") format("truetype");
+  font-weight: 400; font-display: swap;
+}
+@font-face {
+  font-family: "Salesforce Sans";
+  src: url("fonts/SalesforceSans-Light.ttf") format("truetype");
+  font-weight: 300; font-display: swap;
+}
+@font-face {
+  font-family: "Salesforce Sans";
+  src: url("fonts/SalesforceSans-Bold.ttf") format("truetype");
+  font-weight: 700; font-display: swap;
+}
+
+:root {
+  /* ---- official 2026 primary scale (exact Brand Central hex) ---- */
+  --cloud95: #EAF5FE;
+  --cloud80: #90D0FE;
+  --cloud68: #00B3FF;   /* accent — numbers / labels / strokes */
+  --eb50:    #066AFE;
+  --eb30:    #022AC0;   /* containers */
+  --eb15:    #001E5B;   /* type / deep background */
+
+  /* ---- official 2026 secondary scale (80/20 rule — accents only) ---- */
+  --teal80:   #04E1CB;
+  --yellow80: #FCC003;
+  --pink60:   #FF538A;
+  --violet65: #D17DFE;
+
+  /* back-compat aliases (older snippets referenced these names) */
+  --cloud90: var(--cloud95);
+  --cloud70: var(--cloud68);
+  --eb20:    var(--eb15);
+
+  /* EVENING gradient is the DEFAULT theme — covers / quotes / closing.
+     Stops top→bottom: Electric Blue 15 → 30 → 50 → Cloud Blue 68 (never reversed). */
+  --bg-top:    #001E5B;   /* Electric Blue 15 */
+  --bg-mid:    #022AC0;   /* Electric Blue 30 */
+  --bg-bot:    #066AFE;   /* Electric Blue 50 */
+  --ink:       #ffffff;
+  --ink-soft:  #EAF5FE;   /* Cloud Blue 95 */
+  --ink-muted: #90D0FE;   /* Cloud Blue 80 */
+  --accent:    #00B3FF;   /* Cloud Blue 68 — numbers / labels / strokes */
+  --card-bg:   #022AC0;   /* Electric Blue 30 */
+  --card-bg2:  #0746d8;
+  --card-border: rgba(255,255,255,.18);
+  --glow:      rgba(0,179,255,.35);
+
+  --display: "AvantGarde SF", "Trebuchet MS", sans-serif;
+  --body:    "Salesforce Sans", -apple-system, system-ui, sans-serif;
+}
+
+/* ---- LIGHT content theme — add class="light" to a .slide ---- */
+/* Cloud Blue 95 background, deep-blue type. Use for content/data slides. */
+.slide.light {
+  background: linear-gradient(160deg, #EAF5FE 0%, #90D0FE 100%);  /* Morning */
+  --ink:       #001E5B;            /* Electric Blue 15 */
+  --ink-soft:  #022AC0;            /* Electric Blue 30 */
+  --ink-muted: #5b7bb5;
+  --accent:    #066AFE;            /* Electric Blue 50 — legible on light */
+  --card-bg:   #ffffff;
+  --card-bg2:  #ffffff;
+  --card-border: rgba(2,42,192,.16);
+  --glow:      rgba(6,106,254,.22);
+}
+
+/* Default (no .light) vivid-blue slide background — Evening gradient */
+.slide {
+  background:
+    radial-gradient(120% 90% at 78% 18%, #066AFE 0%, transparent 55%),
+    linear-gradient(150deg, var(--bg-top) 0%, var(--bg-mid) 52%, var(--bg-bot) 100%);
+}
+
+/* ---- Official named gradients (Brand Central 2026) ----
+   Always flow top→bottom; never reverse direction or substitute stops.
+   Apply to a .slide via .grad-morning / .grad-midday / .grad-dusk / .grad-evening. */
+.slide.grad-morning  { background: linear-gradient(180deg, #90D0FE 0%, #EAF5FE 100%); }
+.slide.grad-midday   { background: linear-gradient(180deg, #00B3FF 0%, #90D0FE 50%, #EAF5FE 100%); }
+.slide.grad-dusk     { background: linear-gradient(180deg, #066AFE 0%, #00B3FF 40%, #90D0FE 72%, #EAF5FE 100%); }
+.slide.grad-evening  { background: linear-gradient(180deg, #001E5B 0%, #022AC0 38%, #066AFE 72%, #00B3FF 100%); }
+
+/* ============================================================================
+   LEGACY THEME — Headless 360 deep-purple (NOT the official 2026 system).
+   Opt in with class="legacy-purple" on a .slide. Kept for continuity with the
+   Headless 360 / caju-deck look; use only when the user asks for purple.
+   ============================================================================ */
+.slide.legacy-purple {
+  background: linear-gradient(135deg, #1a0b4d 0%, #2d1a6b 45%, #3b1d7a 100%);
+  --ink:       #ffffff;
+  --ink-soft:  rgba(255,255,255,.72);
+  --ink-muted: rgba(255,255,255,.45);
+  --accent:    #00b5fe;            /* legacy accent blue (Headless 360) */
+  --card-bg:   rgba(14, 8, 46, .72);
+  --card-bg2:  rgba(14, 8, 46, .72);
+  --card-border: rgba(255,255,255,.12);
+  --glow:      rgba(150,130,255,.5);
+}
+
+/* ---- Shared typography ---- */
+.eyebrow {
+  font-family: var(--body); font-weight: 700;
+  font-size: 15px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 22px;
+}
+h1 { margin: 0; font-family: var(--display); font-weight: 600; font-size: 76px; line-height: 1.02; letter-spacing: -.01em; color: var(--ink); }
+h2 { margin: 0; font-family: var(--display); font-weight: 600; font-size: 56px; line-height: 1.05; letter-spacing: -.01em; color: var(--ink); }
+/* content slides use a compact heading (h1.title) so the body fills the 720px stage.
+   CANONICAL primitives (assembler base) — components inherit these; a component only
+   redefines one under its own section[data-component] scope when it genuinely differs. */
+.head-block { margin-bottom: 8px; }
+h1.title { font-family: var(--display); font-weight: 600; font-size: 60px; line-height: 1.0; letter-spacing: -.02em; color: var(--ink); }
+.head-block .subtitle, .subtitle { font-family: var(--body); font-weight: 300; font-size: 25px; line-height: 1.3; color: var(--ink-soft); margin-top: 8px; }
+.lead { font-family: var(--body); font-weight: 700; font-size: 24px; color: var(--ink); margin-bottom: 10px; }
+.para { font-family: var(--body); font-weight: 400; font-size: 20px; line-height: 1.4; color: var(--ink-soft); }
+.sub  { font-family: var(--body); font-weight: 300; font-size: 26px; line-height: 1.35; color: var(--ink-soft); margin-top: 18px; max-width: 980px; }
+.meta { font-family: var(--body); font-weight: 400; font-size: 17px; color: var(--ink-muted); letter-spacing: .01em; }
+/* slide footer — pinned to the bottom-left of the 84px stage padding (components may override) */
+.slide > .footer { position: absolute; left: 96px; bottom: 40px; font-family: var(--body); font-size: 13px; color: var(--ink-muted); z-index: 6; }
+
+/* ---- Standard entrance (triggered on the active slide). ---- */
+.slide.active .anim { animation: rise .65s cubic-bezier(.16,.84,.36,1) both; }
+.slide.active .anim:nth-child(2) { animation-delay: .08s; }
+.slide.active .anim:nth-child(3) { animation-delay: .16s; }
+.slide.active .anim:nth-child(4) { animation-delay: .24s; }
+.slide.active .anim:nth-child(5) { animation-delay: .32s; }
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
